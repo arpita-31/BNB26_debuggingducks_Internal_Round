@@ -1,17 +1,15 @@
 {
-  "$schema": "https://vercel.sh",
-  "services": {
-    "backend": {
-      "root": "backend",
-      "framework": "fastapi"
-    }
-  },
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": {
-        "service": "backend"
-      }
+      "src": "backend/app/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "backend/app/main.py"
     }
   ]
 }
