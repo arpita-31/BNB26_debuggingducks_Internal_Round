@@ -1,0 +1,183 @@
+{
+  "name": "ReLearn Closed-Loop Cognitive Adaptation Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "relearn-answer",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node_webhook",
+      "name": "1. Student Answer Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [200, 300],
+      "webhookId": "relearn-webhook-001"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validate incoming student submission\nconst body = $input.item.json.body || $input.item.json;\nif (!body.response && !body.submission) {\n  throw new Error('Missing student response or submission payload');\n}\n\nreturn {\n  json: {\n    learner_id: body.learner_id || 'demo_learner',\n    question_id: body.question_id || 'Q_PY_RANGE_01',\n    domain_id: body.domain_id || 'python_programming',\n    submission: {\n      modality: body.response_type || 'text',\n      text: body.response || (body.submission ? body.submission.text : ''),\n      code: body.code || ''\n    }\n  }\n};"
+      },
+      "id": "node_validate",
+      "name": "2. Validate Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.RELEARN_BACKEND_URL || 'http://localhost:8000' }}/api/diagnose",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "node_diagnose",
+      "name": "3. HTTP: ML Diagnosis",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.prediction.confidence }}",
+              "operation": "largerEqual",
+              "value2": 0.6
+            }
+          ],
+          "boolean": [
+            {
+              "value1": "={{ $json.prediction.correctness }}",
+              "value2": false
+            }
+          ]
+        }
+      },
+      "id": "node_check_confidence",
+      "name": "4. Confident Misconception?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [860, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.RELEARN_BACKEND_URL || 'http://localhost:8000' }}/api/intervention",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ misconception_id: $json.prediction.misconception_id, confidence: $json.prediction.confidence, learner_id: $('2. Validate Payload').first().json.learner_id }) }}",
+        "options": {}
+      },
+      "id": "node_fetch_intervention",
+      "name": "5A. Fetch Targeted Intervention",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare uncertainty diagnostic probe response\nreturn {\n  json: {\n    status: 'uncertain_diagnosis',\n    prompt: 'Confidence below 60%. Presenting discriminating probe to disambiguate student mental model.',\n    diagnosis: $('3. HTTP: ML Diagnosis').first().json\n  }\n};"
+      },
+      "id": "node_uncertainty_probe",
+      "name": "5B. Trigger Disambiguating Probe",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 420]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "node_respond",
+      "name": "6. Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1360, 300]
+    }
+  ],
+  "connections": {
+    "1. Student Answer Webhook": {
+      "main": [
+        [
+          {
+            "node": "2. Validate Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Validate Payload": {
+      "main": [
+        [
+          {
+            "node": "3. HTTP: ML Diagnosis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. HTTP: ML Diagnosis": {
+      "main": [
+        [
+          {
+            "node": "4. Confident Misconception?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Confident Misconception?": {
+      "main": [
+        [
+          {
+            "node": "5A. Fetch Targeted Intervention",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "5B. Trigger Disambiguating Probe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5A. Fetch Targeted Intervention": {
+      "main": [
+        [
+          {
+            "node": "6. Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "5B. Trigger Disambiguating Probe": {
+      "main": [
+        [
+          {
+            "node": "6. Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

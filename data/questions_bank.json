@@ -1,0 +1,241 @@
+{
+  "questions": [
+    {
+      "id": "Q_PY_RANGE_01",
+      "concept": "Python range() boundaries",
+      "target_misconception": "M001",
+      "related_misconception": "M002",
+      "difficulty": "beginner",
+      "title": "Looping with range(1, 5)",
+      "prompt": "What will this Python code print? Explain your reasoning.",
+      "code": "for i in range(1, 5):\n    print(i)",
+      "expected_output": "1\n2\n3\n4",
+      "expected_reasoning": "range(1, 5) starts at 1 and stops before 5 (exclusive upper bound), generating 1, 2, 3, 4.",
+      "modality": "text+code"
+    },
+    {
+      "id": "Q_PY_COUNT_01",
+      "concept": "Loop Iteration & Counting",
+      "target_misconception": "M002",
+      "related_misconception": "M001",
+      "difficulty": "beginner",
+      "title": "Iteration Count of range(5)",
+      "prompt": "How many times does this loop execute, and what is the last value printed? Explain your answer.",
+      "code": "count = 0\nfor i in range(5):\n    count += 1\nprint(f\"Total: {count}, Last: {i}\")",
+      "expected_output": "Total: 5, Last: 4",
+      "expected_reasoning": "range(5) generates 5 numbers (0, 1, 2, 3, 4), so the loop runs exactly 5 times and the last value is 4.",
+      "modality": "text+code"
+    },
+    {
+      "id": "Q_PY_ASSIGN_01",
+      "concept": "Variables & Conditionals",
+      "target_misconception": "M003",
+      "related_misconception": "M010",
+      "difficulty": "beginner",
+      "title": "Conditional Assignment Check",
+      "prompt": "What happens when this Python code runs? Will it print 'Access Granted'? Explain why or why not.",
+      "code": "status = 'guest'\nif status = 'admin':\n    print('Access Granted')",
+      "expected_output": "SyntaxError: invalid syntax",
+      "expected_reasoning": "'status = admin' is an assignment statement, which is invalid syntax inside an if statement. Python requires '==' for equality comparison.",
+      "modality": "text+code"
+    },
+    {
+      "id": "Q_PY_SCOPE_01",
+      "concept": "Functions & Variable Scope",
+      "target_misconception": "M004",
+      "related_misconception": "M006",
+      "difficulty": "intermediate",
+      "title": "Variable Modification in Function",
+      "prompt": "What will this code print? Explain what happens to the variable val inside and outside update().",
+      "code": "val = 20\n\ndef update():\n    val = 50\n    print('Inside:', val)\n\nupdate()\nprint('Outside:', val)",
+      "expected_output": "Inside: 50\nOutside: 20",
+      "expected_reasoning": "Assigning val = 50 inside update() creates a local variable that shadows the global one. The outer val remains 20.",
+      "modality": "text+code"
+    },
+    {
+      "id": "Q_PY_RECURSION_01",
+      "concept": "Recursion",
+      "target_misconception": "M005",
+      "related_misconception": "M007",
+      "difficulty": "intermediate",
+      "title": "Recursive Countdown Function",
+      "prompt": "What does this recursive function return when called as countdown(3)? Explain how execution progresses.",
+      "code": "def countdown(n):\n    print(n)\n    return countdown(n - 1)\n\ncountdown(3)",
+      "expected_output": "RecursionError: maximum recursion depth exceeded",
+      "expected_reasoning": "There is no base case (stopping condition) to halt recursion, so n decrements into negative numbers until RecursionError is raised.",
+      "modality": "text+code"
+    },
+    {
+      "id": "Q_PY_MUTABLE_DEF_01",
+      "concept": "Function Defaults & Mutability",
+      "target_misconception": "M006",
+      "related_misconception": "M004",
+      "difficulty": "intermediate",
+      "title": "Default List Accumulator",
+      "prompt": "What will the two print statements output? Explain why they produce those lists.",
+      "code": "def append_item(x, items=[]):\n    items.append(x)\n    return items\n\nprint(append_item('apple'))\nprint(append_item('banana'))",
+      "expected_output": "['apple']\n['apple', 'banana']",
+      "expected_reasoning": "The default argument items=[] is evaluated once when the function is defined. Subsequent calls mutate that same shared list instance.",
+      "modality": "text+code"
+    },
+    {
+      "id": "Q_PY_WHILE_01",
+      "concept": "While Loops & Control Flow",
+      "target_misconception": "M007",
+      "related_misconception": "M002",
+      "difficulty": "beginner",
+      "title": "While Loop Variable Modification",
+      "prompt": "What exact sequence of numbers will this code output? Explain your tracing of the loop.",
+      "code": "x = 1\nwhile x < 3:\n    x += 1\n    print(x)",
+      "expected_output": "2\n3",
+      "expected_reasoning": "In the first iteration x becomes 2 and prints 2. Then x < 3 is still true (2 < 3), so in the second iteration x becomes 3 and prints 3. Then 3 < 3 is false, so it terminates.",
+      "modality": "text+code"
+    },
+    {
+      "id": "Q_PY_DIV_01",
+      "concept": "Arithmetic Operators",
+      "target_misconception": "M008",
+      "related_misconception": "NONE",
+      "difficulty": "beginner",
+      "title": "Integer vs Float Division",
+      "prompt": "What will both print statements output? Explain the difference between / and //.",
+      "code": "print(7 / 2)\nprint(7 // 2)",
+      "expected_output": "3.5\n3",
+      "expected_reasoning": "7 / 2 performs float division giving 3.5. 7 // 2 performs floor division, rounding down to the nearest integer, giving 3.",
+      "modality": "text+code"
+    },
+    {
+      "id": "Q_PY_INDEX_01",
+      "concept": "Lists & Indexing",
+      "target_misconception": "M009",
+      "related_misconception": "M001",
+      "difficulty": "beginner",
+      "title": "Accessing List Elements",
+      "prompt": "What will this code print? What element is at index 1 and index -1?",
+      "code": "colors = ['red', 'green', 'blue', 'yellow']\nprint(colors[1])\nprint(colors[-1])",
+      "expected_output": "green\nyellow",
+      "expected_reasoning": "Python lists are 0-indexed, so colors[0] is 'red' and colors[1] is 'green'. Negative index -1 accesses the last element 'yellow'.",
+      "modality": "text+code"
+    },
+    {
+      "id": "Q_PY_BOOL_01",
+      "concept": "Boolean Logic & Expressions",
+      "target_misconception": "M010",
+      "related_misconception": "M003",
+      "difficulty": "intermediate",
+      "title": "Compound Boolean Evaluation",
+      "prompt": "What does this code evaluate to? Explain how Python groups the operators.",
+      "code": "result = True or False and False\nprint(result)",
+      "expected_output": "True",
+      "expected_reasoning": "In Python, 'and' has higher operator precedence than 'or'. So 'False and False' evaluates first to False, then 'True or False' evaluates to True.",
+      "modality": "text+code"
+    }
+  ],
+  "transfer_reassessment_questions": [
+    {
+      "id": "Q_TRANS_M001_01",
+      "target_misconception": "M001",
+      "concept": "Python range() boundaries",
+      "difficulty": "beginner",
+      "title": "Transfer Check: range(2, 6)",
+      "prompt": "What exact sequence of numbers is printed by this loop? Explain your answer.",
+      "code": "for n in range(2, 6):\n    print(n)",
+      "expected_output": "2\n3\n4\n5",
+      "expected_reasoning": "range(2, 6) starts at 2 and stops before 6, producing 2, 3, 4, 5. The upper bound 6 is not included.",
+      "validation_rules": {
+        "must_contain": ["2", "3", "4", "5"],
+        "must_not_contain": ["6"],
+        "concept_invariants": ["exclusive upper bound", "stops before 6", "excludes 6"]
+      }
+    },
+    {
+      "id": "Q_TRANS_M001_02",
+      "target_misconception": "M001",
+      "concept": "Python range() boundaries",
+      "difficulty": "intermediate",
+      "title": "Transfer Confirmation: range(10, 14)",
+      "prompt": "Predict the output of this code and explain whether 14 is printed.",
+      "code": "for val in range(10, 14):\n    print(val)",
+      "expected_output": "10\n11\n12\n13",
+      "expected_reasoning": "Starts at 10, generates 10, 11, 12, 13, and stops before reaching 14.",
+      "validation_rules": {
+        "must_contain": ["10", "11", "12", "13"],
+        "must_not_contain": ["14"],
+        "concept_invariants": ["14 excluded", "stops before 14"]
+      }
+    },
+    {
+      "id": "Q_TRANS_M002_01",
+      "target_misconception": "M002",
+      "concept": "Loop Iteration & Counting",
+      "difficulty": "beginner",
+      "title": "Transfer Check: Counting range(0, 4)",
+      "prompt": "How many numbers are printed and what are they? Explain your count.",
+      "code": "for k in range(0, 4):\n    print(k)",
+      "expected_output": "0\n1\n2\n3",
+      "expected_reasoning": "range(0, 4) produces 4 numbers: 0, 1, 2, 3. The loop runs exactly 4 times.",
+      "validation_rules": {
+        "must_contain": ["0", "1", "2", "3", "4 numbers"],
+        "must_not_contain": ["4 is printed", "5 times"]
+      }
+    },
+    {
+      "id": "Q_TRANS_M003_01",
+      "target_misconception": "M003",
+      "concept": "Variables & Conditionals",
+      "difficulty": "beginner",
+      "title": "Transfer Check: Checking Equality vs Assignment",
+      "prompt": "Fix this code so it checks whether score equals 100 without syntax errors. Explain your change.",
+      "code": "score = 100\nif score = 100:\n    print('Perfect Score!')",
+      "expected_output": "score = 100\nif score == 100:\n    print('Perfect Score!')",
+      "expected_reasoning": "Replace '=' with '==' because '=' assigns a value while '==' compares values.",
+      "validation_rules": {
+        "must_contain": ["==", "equality", "comparison"],
+        "must_not_contain": ["single equals works"]
+      }
+    },
+    {
+      "id": "Q_TRANS_M004_01",
+      "target_misconception": "M004",
+      "concept": "Functions & Variable Scope",
+      "difficulty": "intermediate",
+      "title": "Transfer Check: Local Shadowing in Helper",
+      "prompt": "What does this code print? Explain whether the outer counter changes.",
+      "code": "counter = 5\n\ndef increment():\n    counter = 10\n    return counter\n\nincrement()\nprint(counter)",
+      "expected_output": "5",
+      "expected_reasoning": "The function assigns to a local counter, leaving the outer counter unchanged at 5.",
+      "validation_rules": {
+        "must_contain": ["5", "local", "unchanged", "scope"],
+        "must_not_contain": ["10 is printed"]
+      }
+    },
+    {
+      "id": "Q_TRANS_M005_01",
+      "target_misconception": "M005",
+      "concept": "Recursion",
+      "difficulty": "intermediate",
+      "title": "Transfer Check: Adding Base Case to Recursive Factorial",
+      "prompt": "What is missing from this recursive function to prevent an infinite loop? Provide the corrected code.",
+      "code": "def factorial(n):\n    return n * factorial(n - 1)",
+      "expected_output": "Base case guard (e.g., if n <= 1: return 1)",
+      "expected_reasoning": "A base case is required to stop recursion when n reaches 1 or 0; otherwise it calls factorial indefinitely.",
+      "validation_rules": {
+        "must_contain": ["base case", "if n", "return 1", "stopping condition"]
+      }
+    },
+    {
+      "id": "Q_TRANS_M006_01",
+      "target_misconception": "M006",
+      "concept": "Function Defaults & Mutability",
+      "difficulty": "intermediate",
+      "title": "Transfer Check: Default Dictionary Mutable Aliasing",
+      "prompt": "What does record_entry('key1', 'val1') followed by record_entry('key2', 'val2') return? Explain why.",
+      "code": "def record_entry(k, v, store={}):\n    store[k] = v\n    return store\n\nrecord_entry('a', 1)\nprint(record_entry('b', 2))",
+      "expected_output": "{'a': 1, 'b': 2}",
+      "expected_reasoning": "The default dictionary store={} is shared across all function calls, retaining keys from previous invocations.",
+      "validation_rules": {
+        "must_contain": ["'a'", "'b'", "shared", "persists", "same dictionary"]
+      }
+    }
+  ]
+}

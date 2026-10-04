@@ -1,0 +1,275 @@
+{
+  "dataset_statistics": {
+    "training_samples": 438,
+    "test_samples": 40,
+    "num_classes": 11,
+    "classes": [
+      "M001",
+      "M002",
+      "M003",
+      "M004",
+      "M005",
+      "M006",
+      "M007",
+      "M008",
+      "M009",
+      "M010",
+      "NONE"
+    ]
+  },
+  "test_metrics": {
+    "accuracy": 0.875,
+    "macro_precision": 0.9364,
+    "macro_recall": 0.9242,
+    "macro_f1": 0.8963,
+    "weighted_precision": 0.9175,
+    "weighted_recall": 0.875,
+    "weighted_f1": 0.8432,
+    "classes": [
+      "M001",
+      "M002",
+      "M003",
+      "M004",
+      "M005",
+      "M006",
+      "M007",
+      "M008",
+      "M009",
+      "M010",
+      "NONE"
+    ],
+    "per_class": {
+      "M001": {
+        "precision": 0.7,
+        "recall": 1.0,
+        "f1_score": 0.8235,
+        "support": 7
+      },
+      "M002": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 3
+      },
+      "M003": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 3
+      },
+      "M004": {
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1_score": 0.75,
+        "support": 3
+      },
+      "M005": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 3
+      },
+      "M006": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 3
+      },
+      "M007": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 3
+      },
+      "M008": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 3
+      },
+      "M009": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 3
+      },
+      "M010": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0,
+        "support": 3
+      },
+      "NONE": {
+        "precision": 1.0,
+        "recall": 0.1667,
+        "f1_score": 0.2857,
+        "support": 6
+      }
+    },
+    "confusion_matrix": [
+      [
+        7,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        0
+      ],
+      [
+        3,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "total_samples": 40
+  },
+  "baseline_comparison": {
+    "baseline_model": {
+      "name": "Standard Binary Classifier (Correct/Incorrect)",
+      "task": "Binary Classification",
+      "accuracy": 0.8,
+      "diagnostic_resolution": 0.0,
+      "misconceptions_detected": 0,
+      "limitation": "Only flags whether response is wrong; cannot identify underlying cause or differentiate misconceptions."
+    },
+    "relearn_model": {
+      "name": "ReLearn Calibrated Diagnostic Classifier",
+      "task": "Multi-Class Misconception Diagnosis & Differentiation",
+      "accuracy": 0.875,
+      "macro_f1": 0.8963,
+      "diagnostic_resolution": 1.0,
+      "misconceptions_detected": 10,
+      "advantage": "Diagnoses root cognitive cause, differentiates between overlapping errors, and enables targeted pedagogical intervention."
+    }
+  }
+}

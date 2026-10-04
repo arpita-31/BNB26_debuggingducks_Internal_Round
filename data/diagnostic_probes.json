@@ -1,0 +1,73 @@
+{
+  "probes": [
+    {
+      "id": "PROBE_M001_M002",
+      "pair": ["M001", "M002"],
+      "title": "Disambiguation Probe: Loop Boundary vs Counting",
+      "prompt": "Without running code: does range(2, 5) produce 3 items or 4 items, and does it include 5?",
+      "options": [
+        {
+          "text": "It produces [2, 3, 4, 5] (4 items, including 5)",
+          "indicates": "M001",
+          "explanation": "Confirms inclusive upper-bound misconception (M001)."
+        },
+        {
+          "text": "It produces [2, 3, 4] but I counted 4 iterations because 5 - 2 = 3 + 1",
+          "indicates": "M002",
+          "explanation": "Confirms off-by-one counting arithmetic error (M002)."
+        },
+        {
+          "text": "It produces [2, 3, 4] which is exactly 3 items",
+          "indicates": "NONE",
+          "explanation": "Correct understanding demonstrated."
+        }
+      ]
+    },
+    {
+      "id": "PROBE_M003_M010",
+      "pair": ["M003", "M010"],
+      "title": "Disambiguation Probe: Syntax vs Logical Precedence",
+      "prompt": "In the statement 'if x = 10 or y == 20:', what is the primary issue preventing execution?",
+      "options": [
+        {
+          "text": "'x = 10' is an assignment, which is illegal inside an if-statement",
+          "indicates": "NONE",
+          "explanation": "Correctly identifies assignment vs equality operator."
+        },
+        {
+          "text": "The 'or' operator evaluates before the '==' operator",
+          "indicates": "M010",
+          "explanation": "Confirms operator precedence misconception (M010)."
+        },
+        {
+          "text": "A single '=' is used to compare whether x is 10",
+          "indicates": "M003",
+          "explanation": "Confirms assignment vs equality confusion (M003)."
+        }
+      ]
+    },
+    {
+      "id": "PROBE_M004_M006",
+      "pair": ["M004", "M006"],
+      "title": "Disambiguation Probe: Local Scope vs Shared Mutable Object",
+      "prompt": "Why did the outer variable retain or change its value across calls?",
+      "options": [
+        {
+          "text": "Assigning to a variable inside a function always overwrites the global variable",
+          "indicates": "M004",
+          "explanation": "Confirms variable scope shadowing misconception (M004)."
+        },
+        {
+          "text": "The default argument object was created once at function definition time",
+          "indicates": "NONE",
+          "explanation": "Correct understanding of default evaluation."
+        },
+        {
+          "text": "Default lists are recreated every time the function is called",
+          "indicates": "M006",
+          "explanation": "Confirms mutable default misconception (M006)."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,191 @@
+{
+  "taxonomies": [
+    {
+      "id": "M001",
+      "name": "Range Upper-Bound Inclusion",
+      "concept": "Python range() boundaries",
+      "description": "Learner believes that range(start, stop) includes the upper bound (stop value) in the generated sequence.",
+      "observable_signals": [
+        "Explicitly predicts the stop value in loop output",
+        "Predicts stop - start + 1 iterations instead of stop - start",
+        "Phrasing indicates inclusive interval such as 'from start through stop' or 'up to and including'"
+      ],
+      "common_reasoning": "range(1, 5) means numbers 1, 2, 3, 4, 5 because 5 is specified as the end.",
+      "counterexample": "range(1, 4) produces exactly 3 elements: [1, 2, 3]. Notice 4 is never reached.",
+      "related_misconceptions": ["M002", "M009"],
+      "recommended_intervention": "visual_interval_model",
+      "assessment_strategy": "Present an unseen range with different start, stop, and step values to confirm boundary exclusion.",
+      "resolution_criteria": "Learner correctly identifies output sequence without including stop value on 2 consecutive unseen problems."
+    },
+    {
+      "id": "M002",
+      "name": "Off-by-One Iteration Count",
+      "concept": "Loop Iteration & Counting",
+      "description": "Learner miscounts total loop iterations by confounding 0-based counting with 1-based cardinality or misinterpreting loop bounds.",
+      "observable_signals": [
+        "Predicts N+1 or N-1 executions for range(N)",
+        "Understands that range is exclusive but miscalculates the count",
+        "Counts 0 as the 1st iteration but then adds N at the end"
+      ],
+      "common_reasoning": "for i in range(5) will print 6 times because it starts at 0 and goes to 5.",
+      "counterexample": "range(5) outputs: 0, 1, 2, 3, 4. Count them on your fingers: that is exactly 5 items.",
+      "related_misconceptions": ["M001", "M009"],
+      "recommended_intervention": "index_counting_grid",
+      "assessment_strategy": "Present loop counter problems testing total iteration count across 0-indexed ranges.",
+      "resolution_criteria": "Accurately predicts total iterations on unseen zero-indexed and offset loops."
+    },
+    {
+      "id": "M003",
+      "name": "Assignment vs Equality Operator",
+      "concept": "Variables & Conditionals",
+      "description": "Learner confuses the assignment operator (=) with the equality comparison operator (==) in conditional statements.",
+      "observable_signals": [
+        "Writes 'if x = 5:' to test equality",
+        "Believes that '=' checks if two expressions have identical values",
+        "Confuses syntax error in Python with true/false evaluation"
+      ],
+      "common_reasoning": "In math, x = 5 checks if x is equal to 5, so if x = 5 should evaluate to true.",
+      "counterexample": "x = 5 is an ACTION (store 5 into x). x == 5 is a QUESTION (is x equal to 5?). Python forbids '=' in if-conditions.",
+      "related_misconceptions": ["M010"],
+      "recommended_intervention": "action_vs_question_contrast",
+      "assessment_strategy": "Ask learner to write or evaluate conditional checks distinguishing assignment from comparison.",
+      "resolution_criteria": "Consistently uses '==' for condition checks and '=' strictly for variable assignment."
+    },
+    {
+      "id": "M004",
+      "name": "Variable Scope Shadowing",
+      "concept": "Functions & Variable Scope",
+      "description": "Learner believes assigning to a variable with the same name inside a local function scope permanently alters the enclosing global variable.",
+      "observable_signals": [
+        "Predicts the global variable value changed after calling a function without 'global'",
+        "Unaware of local variable creation and lexical scope shielding",
+        "Believes identical variable names across functions refer to the same shared memory"
+      ],
+      "common_reasoning": "Inside the function we set x = 10, so outside x must now be 10.",
+      "counterexample": "Assigning x = 10 inside def f(): creates a brand-new local variable. The outside x remains untouched.",
+      "related_misconceptions": ["M006"],
+      "recommended_intervention": "scope_box_diagram",
+      "assessment_strategy": "Present multi-scope code execution traces without the global keyword.",
+      "resolution_criteria": "Correctly separates local variable bindings from global scope across unseen function calls."
+    },
+    {
+      "id": "M005",
+      "name": "Missing Base Case in Recursion",
+      "concept": "Recursion",
+      "description": "Learner believes a recursive function naturally stops when a counter reaches zero or when an argument finishes, without an explicit base case guard.",
+      "observable_signals": [
+        "Writes recursive function with no 'if' termination guard",
+        "Believes Python automatically stops recursion at 0",
+        "Fails to trace execution into negative numbers leading to RecursionError"
+      ],
+      "common_reasoning": "When n counts down, it reaches 0 and naturally stops recurring.",
+      "counterexample": "Without 'if n <= 0: return', n becomes -1, -2, -3... until Python raises RecursionError: maximum recursion depth exceeded.",
+      "related_misconceptions": ["M007"],
+      "recommended_intervention": "call_stack_unwinding_trace",
+      "assessment_strategy": "Trace recursive functions and identify termination conditions in unseen recursive patterns.",
+      "resolution_criteria": "Correctly predicts call stack behavior and implements explicit base case checks."
+    },
+    {
+      "id": "M006",
+      "name": "Mutable Default Argument Aliasing",
+      "concept": "Function Defaults & Mutability",
+      "description": "Learner assumes default parameter values (e.g. def add(x, lst=[])) are re-instantiated freshly upon every invocation.",
+      "observable_signals": [
+        "Predicts list default is empty on second function call",
+        "Believes default argument expressions are evaluated at call-time rather than definition-time",
+        "Surprised when items appended in previous calls persist"
+      ],
+      "common_reasoning": "Each time we call add(1), lst defaults to a new empty list [], so the output is always [1].",
+      "counterexample": "def add(x, lst=[]): the list [] is created ONCE when the function is defined. Successive calls mutate that exact same list object!",
+      "related_misconceptions": ["M004"],
+      "recommended_intervention": "memory_pointer_aliasing_view",
+      "assessment_strategy": "Predict outputs of multiple sequential calls to functions with mutable default arguments.",
+      "resolution_criteria": "Correctly anticipates default argument persistence and demonstrates idiomatic 'None' sentinel pattern."
+    },
+    {
+      "id": "M007",
+      "name": "While-Loop Mid-Body Termination",
+      "concept": "While Loops & Control Flow",
+      "description": "Learner believes a while loop terminates immediately mid-block the exact millisecond its conditional condition becomes false.",
+      "observable_signals": [
+        "Predicts loop stops in the middle of executing body statements",
+        "Believes subsequent statements inside the current iteration are skipped as soon as condition variable flips",
+        "Fails to recognize that conditions are checked only at iteration boundary"
+      ],
+      "common_reasoning": "When x becomes 5 on line 3, the while condition x < 5 is false, so line 4 never executes.",
+      "counterexample": "Python completes the entire body of the current iteration before re-evaluating the 'while' test at the top.",
+      "related_misconceptions": ["M002"],
+      "recommended_intervention": "step_by_step_flowchart",
+      "assessment_strategy": "Trace while loops where the loop variable modifies before subsequent prints/actions in the same iteration.",
+      "resolution_criteria": "Correctly executes full iteration bodies before checking loop exit conditions."
+    },
+    {
+      "id": "M008",
+      "name": "Integer Division Truncation",
+      "concept": "Arithmetic Operators",
+      "description": "Learner confuses floor division (//) with float division (/) or expects // to round to the nearest integer rather than floor towards negative infinity.",
+      "observable_signals": [
+        "Predicts 7 // 2 produces 3.5",
+        "Predicts -7 // 2 produces -3 instead of -4",
+        "Believes // rounds to nearest integer"
+      ],
+      "common_reasoning": "7 // 2 gives 3.5 or rounds up to 4.",
+      "counterexample": "7 // 2 is 3 (rounds DOWN to nearest integer). 7 / 2 is 3.5 (standard float division).",
+      "related_misconceptions": [],
+      "recommended_intervention": "number_line_floor_view",
+      "assessment_strategy": "Evaluate integer and float division expressions with positive and negative dividends.",
+      "resolution_criteria": "Accurately predicts floor division vs float division across all numeric signs."
+    },
+    {
+      "id": "M009",
+      "name": "1-Indexed Sequence Access",
+      "concept": "Lists & Indexing",
+      "description": "Learner assumes sequence indices start at 1 or treats negative indices as illegal syntax errors.",
+      "observable_signals": [
+        "Predicts my_list[1] accesses the very first item",
+        "Predicts my_list[len(my_list)] returns the final item instead of IndexError",
+        "Believes my_list[-1] causes an out-of-bounds error"
+      ],
+      "common_reasoning": "The first element is at position 1, so items[1] returns the first element.",
+      "counterexample": "Python uses 0-based indexing: items[0] is the 1st element, items[1] is the 2nd element, and items[-1] is the last element.",
+      "related_misconceptions": ["M001", "M002"],
+      "recommended_intervention": "memory_offset_tape",
+      "assessment_strategy": "Query boundary elements, first element, and negative indices on sequences.",
+      "resolution_criteria": "Consistently uses 0-based offsets and negative indexing correctly."
+    },
+    {
+      "id": "M010",
+      "name": "Boolean Operator Precedence",
+      "concept": "Boolean Logic & Expressions",
+      "description": "Learner evaluates boolean expressions strictly left-to-right, failing to respect that 'and' binds tighter than 'or'.",
+      "observable_signals": [
+        "Groups 'A or B and C' as '(A or B) and C'",
+        "Ignores operator precedence hierarchy in boolean expressions",
+        "Predicts incorrect branch execution in compound conditionals"
+      ],
+      "common_reasoning": "Expressions are always read from left to right, so 'True or False and False' evaluates (True or False) which is True, and then True and False which is False.",
+      "counterexample": "'True or False and False' is evaluated as 'True or (False and False)' = 'True or False' = True, because 'and' has higher precedence than 'or'.",
+      "related_misconceptions": ["M003"],
+      "recommended_intervention": "precedence_tree_diagram",
+      "assessment_strategy": "Evaluate compound conditionals combining 'and', 'or', and 'not' without explicit parentheses.",
+      "resolution_criteria": "Correctly applies operator precedence to compound logical expressions."
+    },
+    {
+      "id": "NONE",
+      "name": "No Misconception / Correct Reasoning",
+      "concept": "General Python Programming",
+      "description": "Learner demonstrates sound mental models, accurate boundary understanding, and valid reasoning without detectable misconceptions.",
+      "observable_signals": [
+        "Outputs match expected ground truth",
+        "Reasoning correctly states the underlying invariant or language rule",
+        "No evidence of faulty cognitive shortcuts or misinterpretations"
+      ],
+      "common_reasoning": "Accurate and coherent mental model.",
+      "counterexample": "N/A",
+      "related_misconceptions": [],
+      "recommended_intervention": "positive_reinforcement_and_advance",
+      "assessment_strategy": "Advance learner to higher difficulty challenges.",
+      "resolution_criteria": "Continue demonstrating mastery."
+    }
+  ]
+}
