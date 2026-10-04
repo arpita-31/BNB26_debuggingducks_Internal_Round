@@ -157,7 +157,7 @@ Visit **`http://localhost:8000`** in your browser to access the complete ReLearn
 
 ---
 
-## 8. Guided Judge Demo Script (2–4 Minutes)
+
 
 1. **Open Dashboard:** Navigate to `http://localhost:8000`. Notice the active domain is Python Programming.
 2. **Select Scenario:** In the top header bar, select **`Scenario 1: Range Endpoint Inclusion (M001)`** and click **`Load Scenario`**.
