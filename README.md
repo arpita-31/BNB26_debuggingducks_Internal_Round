@@ -10,6 +10,8 @@
 ---
 
 ## 1. Problem Statement & Background
+<img width="1514" height="692" alt="image" src="https://github.com/user-attachments/assets/07f1db14-a865-4456-be61-8320d9f58b8f" />
+
 
 Most Learning Management Systems (LMS) follow rigid linear sequences: lecture $\rightarrow$ video $\rightarrow$ quiz. When a learner makes a mistake:
 - The system treats the wrong answer as simply incorrect ($0/1$).
@@ -161,22 +163,31 @@ Visit **`http://localhost:8000`** in your browser to access the complete ReLearn
 
 1. **Open Dashboard:** Navigate to `http://localhost:8000`. Notice the active domain is Python Programming.
 2. **Select Scenario:** In the top header bar, select **`Scenario 1: Range Endpoint Inclusion (M001)`** and click **`Load Scenario`**.
+<img width="1530" height="678" alt="image" src="https://github.com/user-attachments/assets/51251413-0e5d-450d-a6e8-ba0cd6057be7" />
 3. **Inspect Submission:** The input box is populated with student reasoning: *"The loop will print 1, 2, 3, 4, 5 because range(1, 5) includes the endpoint 5."*
+<img width="1302" height="586" alt="image" src="https://github.com/user-attachments/assets/297aea3b-17d8-48f5-8997-3840ce2fd731" />
 4. **Run Diagnosis:** Click **`Run Cognitive Diagnosis`**.
    - Notice the ML pipeline tracker steps through Ingestion $\rightarrow$ Feature Extraction $\rightarrow$ Candidate Scoring $\rightarrow$ Differentiation.
    - Diagnosed: **`M001 — Range Upper-Bound Inclusion`** with high calibrated confidence ($>90\%$).
    - Review the **Extracted Diagnostic Evidence** and the **Posterior Distribution Bar Chart** proving candidate differentiation.
+<img width="862" height="658" alt="image" src="https://github.com/user-attachments/assets/9d071099-0615-47a5-9345-4b9ebe43a782" />
 5. **Launch Intervention:** Click **`Launch Targeted Pedagogical Intervention`**.
    - Review the **Mental Model Shift** (Half-open intervals $[start, stop)$).
    - Review the **Visual Interval Diagram** showing `[1, 2, 3, 4]` as IN and `5` as STOP/OUT.
    - Solve the interactive **Micro-Practice Check** and observe instant feedback.
+<img width="903" height="445" alt="image" src="https://github.com/user-attachments/assets/f752bd93-6e0c-44b2-bc9a-bc48ea6e749a" />
+
 6. **Trigger Reassessment:** Click **`Proceed to Unseen Transfer Reassessment`**.
    - The system presents a **DIFFERENT unseen question** testing `range(2, 6)`.
    - Submit: *"The output is 2, 3, 4, 5 because in Python range(2, 6) the upper bound 6 is excluded."*
    - Click **`Verify Misconception Resolution`**.
+<img width="882" height="678" alt="image" src="https://github.com/user-attachments/assets/30ad925e-128b-4ac8-a10c-e65b8f7be9b6" />
+
 7. **Verify Resolution:**
    - Status badge turns green: **`RESOLVED`**.
    - Mastery increases: e.g., $32\% \rightarrow 84\%$.
    - Evidence shows both boundary compliance and conceptual invariant understanding.
+<img width="856" height="680" alt="image" src="https://github.com/user-attachments/assets/64951fa4-feb9-41d8-81d6-df80d7ca8dc3" />
+
 8. **Inspect Learner Model:** Switch to the **`Learner Model`** tab to view the updated concept mastery vector, resolved timeline, and the **Adaptive Curriculum Recommendation**.
 9. **Inspect ML Analytics:** Switch to the **`Model Analytics (ML)`** tab to verify the real Confusion Matrix heatmap, Macro F1, and scientific baseline comparison.
